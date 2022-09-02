@@ -28,7 +28,8 @@ require('packer').startup(function(use)
   
   -- ADDITIONAL PACKAGES HERE
   use { "nvim-telescope/telescope-file-browser.nvim" }                            -- create/move directories and files
-
+  use { "prettier/vim-prettier" }                                                 -- create/move directories and files
+  
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
@@ -106,6 +107,9 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- MY CUSTOM KEYMAPPINGS
+vim.keymap.set('n', 'ff', ':Telescope fd <return>')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
