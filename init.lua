@@ -1,4 +1,4 @@
--- Install packer
+-- Install packercarde
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -26,10 +26,13 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth'                                                          -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
   
+
   -- ADDITIONAL PACKAGES HERE
   use { "nvim-telescope/telescope-file-browser.nvim" }                            -- create/move directories and files
   use { "prettier/vim-prettier" }                                                 -- create/move directories and files
-  
+  use { "ThePrimeagen/harpoon", requires = { 'nvim-lua/plenary.nvim'} }           -- view related files easier
+  use { "preservim/nerdtree" }
+  -- 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
@@ -64,7 +67,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -93,6 +96,10 @@ vim.cmd [[colorscheme onedark]]
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- MY CUSTOM SETTINGS
+vim.o.relativenumber = true
+
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -109,7 +116,14 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- MY CUSTOM KEYMAPPINGS
+vim.keymap.set('n', '<leader>p', ':Prettier<return>')
 vim.keymap.set('n', 'ff', ':Telescope fd <return>')
+vim.keymap.set('n', 'fd', ':Telescope live_grep <return>')
+vim.keymap.set('n', 'fr', ':Telescope lsp_references <return> <Esc>')
+vim.keymap.set('n', '<esc>', ':noh<cr>');
+
+vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>');
+vim.keymap.set('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>');
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
