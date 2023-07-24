@@ -25,7 +25,7 @@ require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim'                                       -- Add indentation guides even on blank lines
   use 'tpope/vim-sleuth'                                                          -- Detect tabstop and shiftwidth automatically
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Fuzzy Finder (files, lsp, etc)
-  
+  use { 'github/copilot.vim'}
 
   -- ADDITIONAL PACKAGES HERE
   use { "nvim-telescope/telescope-file-browser.nvim" }                            -- create/move directories and files
@@ -36,10 +36,20 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable "make" == 1 }
 
+
+  use {
+	  "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
+  use {
+    "windwp/nvim-ts-autotag"
+  }
+
   if is_bootstrap then
     require('packer').sync()
   end
 end)
+
 -- stylua: ignore end
 
 -- When we are bootstrapping a configuration, it doesn't
@@ -173,6 +183,7 @@ require('gitsigns').setup {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_strategy = "vertical",
     file_ignore_patterns = {"node_modules", "web-build"},
     mappings = {
       i = {
