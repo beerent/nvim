@@ -135,6 +135,11 @@ vim.keymap.set('n', '<esc>', ':noh<cr>');
 vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>');
 vim.keymap.set('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>');
 
+-- Automatically format on save
+vim.api.nvim_exec([[
+    autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.json,*.css,*.scss,*.md PrettierAsync
+]], false)
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -329,7 +334,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'lua_ls' }
 
 -- Ensure the servers above are installed
 require('nvim-lsp-installer').setup {
@@ -350,7 +355,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
