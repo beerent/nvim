@@ -70,6 +70,7 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'github/copilot.vim',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -215,6 +216,14 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  -- my custom plugins
+
+  'prettier/vim-prettier',
+  'ThePrimeagen/harpoon',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+  }
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -235,7 +244,7 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true 
 
 -- Make line numbers default
 vim.wo.number = true
@@ -271,6 +280,9 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- custom vim settings
+vim.o.relativenumber = true
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -287,6 +299,9 @@ vim.keymap.set('n', 'ff', ':Telescope fd <return>')
 vim.keymap.set('n', 'fd', ':Telescope live_grep <return>')
 vim.keymap.set('n', '<esc>', ':noh<cr>');
 
+vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>');
+vim.keymap.set('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>');
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -302,6 +317,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_strategy = "vertical",
     mappings = {
       i = {
         ['<C-u>'] = false,
