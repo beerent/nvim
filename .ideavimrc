@@ -21,6 +21,11 @@ map <leader>s <Action>(SelectInProjectView)
 map <leader>f <Action>(GotoClass)
 map <leader>d <Action>(Find)
 map <leader>p <Action>(ReformatCode)
+map <leader>r <Action>(Debug)
+
+nnoremap ]] ]}
+nnoremap [[ [{
+
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
