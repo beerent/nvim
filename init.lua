@@ -220,6 +220,7 @@ require('lazy').setup({
 
   'prettier/vim-prettier',
   'ThePrimeagen/harpoon',
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   dependencies = {
     'nvim-lua/plenary.nvim',
   }
@@ -237,7 +238,10 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+
 }, {})
+
+vim.cmd.colorscheme "catppuccin"
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
