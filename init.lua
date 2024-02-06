@@ -302,6 +302,7 @@ vim.keymap.set('n', '<leader>p', ':Prettier<return>')
 vim.keymap.set('n', 'ff', ':Telescope fd <return>')
 vim.keymap.set('n', 'fd', ':Telescope live_grep <return>')
 vim.keymap.set('n', '<esc>', ':noh<cr>');
+vim.keymap.set('n', '<leader>y', '"*y');
 
 vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>');
 vim.keymap.set('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>');
